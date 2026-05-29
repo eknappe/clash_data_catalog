@@ -1,0 +1,91 @@
+# CLaSH Dataset Catalog
+# =====================
+# This file is the source of truth for the dataset catalog.
+# Add one entry per dataset following the structure below.
+# Run python build.py after any changes to regenerate the site.
+#
+# Required fields: id, name, description, pi, institution, observatories,
+#                  data_type, collection_start, data_level, collection_status
+# All other fields are optional but encouraged.
+#
+# id format: DS001, DS002, etc. — must be unique
+
+datasets:
+
+  - id: DS001
+    name: "SoCal Lidar Campaign 2024"
+    description: >
+      campaign measurement from a skateboard and with a puppy - we are testing the search function
+    pi: "Chuck Norris"
+    institution: "University of Southern California"
+    personnel:
+      - "Carlos Sainz"
+      - "Oscar Piastri"
+    observatories:
+      - SoCal
+      - Alaska
+    data_type: Airborne
+    instrument: "some cool instrument"
+    parameters_measured:
+      - "DEM"
+    field_site: "San Gabriel Mountains, CA"
+    spatial:
+      type: bboxes
+      boxes:
+        - {lat_min: 34.0, lat_max: 34.5, lon_min: -118.5, lon_max: -118.0}  
+    collection_start: "2024-02-10"
+    collection_end: "2024-02-14"
+    temporal_resolution: "Single campaign"
+    spatial_resolution: "0.5 m"
+    format: "GeoTIFF"
+    size_gb: 10
+    data_level: "L1: Calibrated"
+    collection_status: Complete
+    data_location: "/data/socal/lidar/2024_sangabriel/"
+    access_notes: "Contact F1 for access."
+    doi: ""
+    publications: []
+    date_added: "2024-03-15"
+    notes: "snazzy notes here about the equiment, data quality, etc."
+
+  - id: DS002
+    name: "Puerto Rico Weather Station"
+    description: >
+      Weather station with tipping bucket, soil moisture and temperature.
+    pi: "Indiana Jones"
+    institution: "University of Puerto Rico"
+    personnel:
+      - "Luke Skywalker"
+      - "Dora the Explorer"
+    observatories:
+      - Puerto Rico
+    data_type: Meteorological
+    instrument: "Campbell Scientific CR1000X"
+    parameters_measured:
+      - "Precipitation (mm/hr)"
+      - "Temperature (°C)"
+      - "Soil Moisture (%)"
+    field_site: "Puerto Rico"
+    spatial:
+      type:points
+      locations:
+        - {lat: 18.32, lon: -65.82}
+        - {lat: 18.33, lon: -65.83}
+    collection_start: "2023-06-01"
+    collection_end: ""
+    temporal_resolution: "1 hour"
+    spatial_resolution: "Point network (12 stations)"
+    format: "CSV"
+    size_gb: 0.8
+    data_level: "L1: Calibrated"
+    collection_status: Active
+    data_location: "/data/puertorico/met/luquillo_raingauges/"
+    access_notes: "Available to all CLaSH project members."
+    doi: ""
+    publications: []
+    date_added: "2023-07-01"
+    notes: >
+      Station offline during time period because of hurricane. 
+      Data gap flagged as possibly erroneous at this time period.
+
+ 

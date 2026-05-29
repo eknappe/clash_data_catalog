@@ -75,7 +75,7 @@ print("Loading dataset metadata from YAML...")
 with open("data/datasets.yaml", "r") as f:
     raw_data = yaml.safe_load(f)
 
-datasets = raw.get("datasets", []) #the list of datasets entries
+datasets = raw_data.get("datasets", []) #the list of datasets entries
 print(f"Loaded {len(datasets)} datasets")
 #migrate to json for easier handling later on
 datasets_json = json.dumps(datasets, default=str, indent=2)
@@ -89,18 +89,18 @@ total_gb = sum(d.get("size_gb", 0) or 0 for d in datasets)
 obs_counts = {obs: sum(1 for d in datasets if d.get("observatory") == obs) for obs in observatories}
 
 # timestamp shown in page header and footer, to indicate when the catalog was last updated. Using UTC time 
-built_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
-
+yaml_mtime = os.path.getmtime('data/datasets.yaml')  
+built_at = datetime.fromtimestamp(yaml_mtime, tz=timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
 
 # Set up Jinja2 environment and load template
 print("Setting up Jinja2 environment...")
-env = Environment(loader=FileSystemLoader(TEMPLATE_DIR), autoescape=True)
+env = Environment(loader=FileSystemLoader(TEMPLATE_DIR), autoescape=False)
 template = env.get_template(TEMPLATE_FILE)
 
 # Render the template with the dataset and summary statistics
 print("Rendering template...")
 rendered_html = template.render(
-    datasets=datasets_json,
+    datasets_json=datasets_json,
     total=total,
     total_gb=total_gb,
     built_at=built_at,
@@ -109,7 +109,7 @@ rendered_html = template.render(
     obs_counts=obs_counts,
     data_types=DATA_TYPES,
     data_levels=DATA_LEVELS,
-    collection_status=COLLECTION_STATUS,
+    collection_statuses=COLLECTION_STATUS,
 )   
 
 #write the rendered HTML to the output file
@@ -122,6 +122,6 @@ with open(OUTPUT_HTML, "w", encoding="utf-8") as f:
 print(f"Copying CSS from {CSS_SRC} to {OUTPUT_CSS}...")
 shutil.copy(CSS_SRC, OUTPUT_CSS)
 
-print("Build complete! {total} datasets, {total_gb:.1f} GB total")
+print(f"Build complete! {total} datasets, {total_gb:.1f} GB total")
 print(f"Open {OUTPUT_HTML} in a browser to view the catalog.")
 
