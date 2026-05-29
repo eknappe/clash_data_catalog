@@ -121,6 +121,9 @@ with open(OUTPUT_HTML, "w", encoding="utf-8") as f:
 # copy the CSS file to the output directory
 print(f"Copying CSS from {CSS_SRC} to {OUTPUT_CSS}...")
 shutil.copy(CSS_SRC, OUTPUT_CSS)
+# add the logo image to the output directory
+shutil.copy("templates/clash_logo.png", os.path.join(OUTPUT_DIR, "clash_logo.png"))
+
 
 print(f"Build complete! {total} datasets, {total_gb:.1f} GB total")
 print(f"Open {OUTPUT_HTML} in a browser to view the catalog.")
