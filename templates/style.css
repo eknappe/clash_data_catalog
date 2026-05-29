@@ -1,0 +1,580 @@
+:root{
+    /*background colors*/
+  --bg:          #0f1117;
+  --surface:     #181c27;
+  --surface2:    #1e2435;
+    /*border colors*/
+  --border:      #2a3045;
+  --border2:     #3a4560;
+    /*text colors*/
+  --text:        #d4dbe8;
+  --text-muted:  #7a8aaa;
+  --text-dim:    #4a5570;
+    /*accent colors, including clash yello as primary*/
+  --accent:      #fcb900;
+  --accent2:     #0693e3;
+  --accent3:     #00d084;
+     /*observatory colors*/ 
+     /*note to add another obs need to also add later as well*/
+  --alaska:      #0693e3;
+  --appalachia:  #00d084;
+  --socal:       #e8784a;
+  --puerto-rico: #9b51e0;
+  --network:     #f78da7;
+  --other:       #7a8aaa;
+    /*fonts*/
+  --mono:        'IBM Plex Mono', monospace;
+  --sans:        'IBM Plex Sans', sans-serif;
+  --serif:       'IBM Plex Serif', serif;
+}
+
+/* Reset and base styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* Header styles */
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* just use a simple triangle as the logo mark for now, can replace with svg later if needed */
+.logo-mark {
+  width: 28px;
+  height: 28px;
+  background: var(--accent);
+  clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+  flex-shrink: 0;
+}
+.logo-text {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+}
+.logo-text span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.build-time {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* Stats bar / summary box below the header, values are pulled from build script*/
+.stats-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 2rem;
+}
+
+/*auto-fit with min max allows boxes to work on narrow screens */
+.stats-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 1rem;
+}
+.stat {
+  text-align: center;
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.stat-value {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--accent);
+  line-height: 1.2;
+}
+.stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-top: 3px;
+}
+
+/* main page layout */
+
+.page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 4rem;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* sidebar styles */
+
+.sidebar {
+  position: sticky;
+  top: 57px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+.sidebar-section {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-section:last-child {
+  border-bottom: none;
+}
+.sidebar-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+/* search box */
+.search-wrap {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.search-input {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 6px 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.search-input:focus {
+  border-color: var(--border2);
+}
+
+.search-input::placeholder {
+  color: var(--text-dim);
+}
+
+/*filter buttons */
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 4px 7px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  margin-bottom: 2px;
+  gap: 5px;
+}
+
+.filter-btn:hover {
+  background: var(--surface2);
+  border-color: var(--border);
+}
+
+.filter-btn.active {
+  background: var(--surface2);
+  border-color: var(--border2);
+  color: white;
+}
+
+.filter-btn .count {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-left: auto;
+}
+
+.filter-btn.active .count {
+  color: var(--text-muted);
+}
+
+/* data level filter code badge */
+.level-code {
+  font-family: var(--mono);
+  font-size: 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 2px;
+  padding: 0 4px;
+  color: var(--accent2);
+  margin-right: 2px;
+  flex-shrink: 0;
+}
+
+/* colored dot used next to observatory filter buttons */
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-alaska      { background: var(--alaska); }
+.dot-appalachia  { background: var(--appalachia); }
+.dot-socal       { background: var(--socal); }
+.dot-puertorico  { background: var(--puerto-rico); }
+.dot-network     { background: var(--network); }
+.dot-other       { background: var(--other); }
+
+/* date range picker*/
+.date-range {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.date-range-row {
+  display: flex;
+  align-items:center;
+  gap: 6px;
+}
+
+.date-range-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  width: 26px;
+  flex-shrink: 0;
+}
+
+.date-input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 6px 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s;
+    color-scheme: dark;
+}
+
+.date-input:focus {
+  border-color: var(--border2);
+}
+
+.date-clear-btn {
+  display: none;
+  width: 100%;
+  margin-top: 4px;
+  padding: 4px 0;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+  font-size: 11px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s;
+}
+
+.date-clear-btn:hover {
+  background: var(--surface2);
+  border-color: var(--border2);
+  color: var(--text);
+}
+
+.date-clear-btn.visible {
+  display: block;
+}
+
+/*main results header*/
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.results-count {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.sort-select {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 5px 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text);
+  cursor: pointer;
+  outline: none;
+}
+
+/*dataset summary in header*/
+.dataset-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
+.dataset-card:hover {
+    border-color: var(--border2);
+}
+.dataset-card.expanded {
+  border-color: var(--border2);
+}
+
+.card-header {
+  padding: 1rem 1.25rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  align-items: start;
+}
+
+.card-id {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-bottom: 3px;
+}
+
+.card-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+/*clamp descriptions*/
+.card-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+/* right side of card header: stacks badges vertically, arrow at bottom */
+.status-badges {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+/* chevron arrow — rotates 180° when card is expanded */
+.expand-icon {
+  font-size: 18px;
+  color: var(--text-dim);
+  margin-top: 2px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+  user-select: none;
+}
+
+.dataset-card.expanded .expand-icon {
+  transform: rotate(180deg);
+}
+
+/*card detail, opens when you click the card, contains more info and metadata about the dataset*/
+.card-detail {
+  display: none;
+  padding: 0 1.25rem 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.card-detail.open {
+  display: block;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+.detail-section-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin-bottom: 0.5rem;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* key value pairs for dataset metadata */
+.detail-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+.detail-key {
+  color: var(--text-dim);
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.detail-val {
+  color: var(--text);
+  word-break: break-all;
+}
+
+/*italic notes section at bottom of dataset detail, used for any additional info that doesn't fit into the key value pairs above, or for longer form notes about the dataset*/
+.detail-notes {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border-left: 3px solid var(--border2);
+  font-size: 13px;
+  color: var(--text-muted);
+  font-family: var(--serif);
+  font-style: italic;
+}
+
+/*bag and tag it*/
+/* badges for dataset level and curation status, used in the card header and in the detail view, just different colors for different values */
+/* tag types: obs, type*/
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 7px;
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+/* observatory tags — each has its own colour */
+.tag-obs-alaska      { background: rgba(74,158,232,0.12);  color: var(--alaska);      border: 1px solid rgba(74,158,232,0.25); }
+.tag-obs-appalachia  { background: rgba(94,196,122,0.12);  color: var(--appalachia);  border: 1px solid rgba(94,196,122,0.25); }
+.tag-obs-socal       { background: rgba(232,120,74,0.12);  color: var(--socal);       border: 1px solid rgba(232,120,74,0.25); }
+.tag-obs-puertorico  { background: rgba(196,122,219,0.12); color: var(--puerto-rico); border: 1px solid rgba(196,122,219,0.25); }
+.tag-obs-network     { background: rgba(232, 143, 74, 0.12);  color: var(--network);  border: 1px solid rgba(232, 137, 74, 0.25); }
+.tag-obs-other       { background: rgba(122,138,170,0.12); color: var(--other);       border: 1px solid rgba(122,138,170,0.2); }
+
+/* data type tag — neutral */
+.tag-type   { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
+
+/* data level badge, just make it blue*/
+.level-badge {
+  padding: 3px 9px;
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 11px;
+  white-space: nowrap;
+  background: rgba(74,158,232,0.1);
+  color: var(--accent2);
+  border: 1px solid rgba(74,158,232,0.2);
+}
+  
+/*collection status badge, different colors for active, complete, published*/
+.cstatus-badge {
+  padding: 3px 9px;
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: 11px;
+  white-space: nowrap;
+}
+.cstatus-active   { background: rgba(94,196,122,0.12);  color: var(--accent3);  border: 1px solid rgba(94,196,122,0.25); }
+.cstatus-complete { background: rgba(122,138,170,0.12); color: var(--text-muted); border: 1px solid rgba(122,138,170,0.2); }
+.cstatus-published { background: rgba(165, 134, 191, 0.12); color: var(--text-dim); border: 1px solid rgba(165, 134, 191, 0.25); }
+
+/*when no results are found, or if there's an error loading the dataset details, show a simple message in the detail view*/
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: var(--text-dim);
+}
+.empty-state p {
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+/*responsive styles, mostly just stacking the sidebar on top of the main content and making sure things resize appropriately, can expand as needed for smaller screens but this is a good starting point for now*/
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    position: static;
+    max-height: none;
+  }
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
