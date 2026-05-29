@@ -32,7 +32,7 @@ datasets:
     spatial:
       type: bboxes
       boxes:
-        - {lat_min: 34.0, lat_max: 34.5, lon_min: -118.5, lon_max: -118.0}  
+        - {north: 34.5, south: 34.0, east: -118.0, west: -118.5}  
     collection_start: "2024-02-10"
     collection_end: "2024-02-14"
     temporal_resolution: "Single campaign"
@@ -67,7 +67,7 @@ datasets:
       - "Soil Moisture (%)"
     field_site: "Puerto Rico"
     spatial:
-      type:points
+      type: points
       locations:
         - {lat: 18.32, lon: -65.82}
         - {lat: 18.33, lon: -65.83}
