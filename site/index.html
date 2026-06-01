@@ -26,7 +26,7 @@
         <span>Network-wide · Internal Use Only</span>
       </div>
     </a>
-    <div class="build-time">Data last updated at 2026-05-29 13:13 UTC</div>
+    <div class="build-time">Data last updated at 2026-06-01 09:43 UTC</div>
   </div>
 </header>
 
@@ -36,12 +36,12 @@
   <div class="stats-inner">
 
     <div class="stat">
-      <div class="stat-value">2</div>
+      <div class="stat-value">3</div>
       <div class="stat-label">Datasets</div>
     </div>
 
     <div class="stat">
-      <div class="stat-value">11 GB</div>
+      <div class="stat-value">14 GB</div>
       <div class="stat-label">Total Size</div>
     </div>
 
@@ -49,7 +49,7 @@
     <div class="stat">
       
       <div class="stat-value" style="color:var(--alaska)">
-        0
+        1
       </div>
       <div class="stat-label">Alaska</div>
     </div>
@@ -57,7 +57,7 @@
     <div class="stat">
       
       <div class="stat-value" style="color:var(--appalachia)">
-        0
+        1
       </div>
       <div class="stat-label">Appalachia</div>
     </div>
@@ -65,7 +65,7 @@
     <div class="stat">
       
       <div class="stat-value" style="color:var(--socal)">
-        0
+        1
       </div>
       <div class="stat-label">SoCal</div>
     </div>
@@ -73,7 +73,7 @@
     <div class="stat">
       
       <div class="stat-value" style="color:var(--puerto-rico)">
-        0
+        1
       </div>
       <div class="stat-label">Puerto Rico</div>
     </div>
@@ -81,7 +81,7 @@
     <div class="stat">
       
       <div class="stat-value" style="color:var(--network-wide)">
-        0
+        1
       </div>
       <div class="stat-label">Network wide</div>
     </div>
@@ -89,7 +89,7 @@
     <div class="stat">
       
       <div class="stat-value" style="color:var(--other)">
-        0
+        1
       </div>
       <div class="stat-label">Other</div>
     </div>
@@ -318,7 +318,7 @@
 
     
     <div class="results-header">
-      <div class="results-count" id="resultsCount">Showing 2 datasets</div>
+      <div class="results-count" id="resultsCount">Showing 3 datasets</div>
       <select class="sort-select" onchange="applyFilters()" id="sortSelect">
         <option value="date_desc">Newest first</option>
         <option value="date_asc">Oldest first</option>
@@ -348,8 +348,8 @@ const DATASETS = [
   {
     "id": "DS001",
     "name": "SoCal Lidar Campaign 2024",
-    "description": "campaign measurement from a skateboard and with a puppy - we are testing the search function\n",
-    "pi": "Chuck Norris",
+    "description": "Airborne lidar campaign conducted in February 2024 over the San Gabriel Mountains in Southern California. Data includes high-resolution digital elevation models (DEMs) and point clouds.\n",
+    "pi": "Fernando Alonso",
     "institution": "University of Southern California",
     "personnel": [
       "Carlos Sainz",
@@ -382,7 +382,7 @@ const DATASETS = [
     "spatial_resolution": "0.5 m",
     "format": "GeoTIFF",
     "size_gb": 10,
-    "data_level": "L1: Calibrated",
+    "data_level": "L2: Quality Controlled",
     "collection_status": "Complete",
     "data_location": "/data/socal/lidar/2024_sangabriel/",
     "access_notes": "Contact F1 for access.",
@@ -402,7 +402,8 @@ const DATASETS = [
       "Dora the Explorer"
     ],
     "observatories": [
-      "Puerto Rico"
+      "Puerto Rico",
+      "Appalachia"
     ],
     "data_type": "Meteorological",
     "instrument": "Campbell Scientific CR1000X",
@@ -428,7 +429,7 @@ const DATASETS = [
     "collection_start": "2023-06-01",
     "collection_end": "",
     "temporal_resolution": "1 hour",
-    "spatial_resolution": "Point network (12 stations)",
+    "spatial_resolution": "Point network (2 stations)",
     "format": "CSV",
     "size_gb": 0.8,
     "data_level": "L1: Calibrated",
@@ -439,6 +440,65 @@ const DATASETS = [
     "publications": [],
     "date_added": "2023-07-01",
     "notes": "Station offline during time period because of hurricane.  Data gap flagged as possibly erroneous at this time period.\n"
+  },
+  {
+    "id": "DS003",
+    "name": "GNSS stations in Nepal",
+    "description": "GNSS network installed in Nepal to monitor crustal deformation. Data includes daily position solutions and raw observation files.\n",
+    "pi": "Batman",
+    "institution": "ETH Zurich",
+    "personnel": [
+      "Bruce Wayne",
+      "Alfred Pennyworth",
+      "Robin",
+      "Batgirl"
+    ],
+    "observatories": [
+      "Network wide",
+      "Other"
+    ],
+    "data_type": "Seismic / Geodetic",
+    "instrument": "Septentrio PolaRx5 GNSS Receiver",
+    "parameters_measured": [
+      "Daily position solutions (latitude, longitude, height)",
+      "Raw GNSS observation files (RINEX format)"
+    ],
+    "field_site": "Nepal",
+    "spatial": {
+      "type": "points",
+      "locations": [
+        {
+          "lat": 28.39,
+          "lon": 84.12
+        },
+        {
+          "lat": 27.98,
+          "lon": 85.34
+        },
+        {
+          "lat": 28.15,
+          "lon": 84.56
+        },
+        {
+          "lat": 28.22,
+          "lon": 84.78
+        }
+      ]
+    },
+    "collection_start": "2014-06-01",
+    "collection_end": "",
+    "temporal_resolution": "30 minutes for raw data, daily for position solutions",
+    "spatial_resolution": "Point network (4 stations)",
+    "format": "RINEX for raw data, CSV for position solutions",
+    "size_gb": 3,
+    "data_level": "L2b: Processed and Quality Controlled",
+    "collection_status": "Published",
+    "data_location": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "access_notes": "Available to all CLaSH project members.",
+    "doi": "",
+    "publications": [],
+    "date_added": "2026-07-01",
+    "notes": "Data quality is generally good, but there are occasional gaps in the raw data due to power outages at the stations. Position solutions are available for all days, but some have higher uncertainty during periods of poor raw data coverage.\n"
   }
 ];
 
@@ -490,9 +550,9 @@ function cstatusClass(s) {
 // if >2 observatories, shows a compact "Multi-observatory (N)" summary.
 function renderObsTags(d) {
   const obs = d.observatories || [];
-  if (obs.length === 0) return '<span class="tag tag-obs-network">Network-wide</span>';
+  if (obs.length === 0) return '<span class="tag tag-obs-networkwide">Network-wide</span>';
   if (obs.length > 2)   return `<span class="tag tag-obs-networkwide">Multi-observatory (${obs.length})</span>`;
-  return obs.map(o => `<span class="tag tag-obs-${obsClass(o)}">${o}</span>`).join('');
+  return obs.map(o => `<span class="tag tag-obs-${obsClass(o)}">${o === 'Other' ? 'Other locations' : o}</span>`).join('');
 }
 
 // html-escapes a value before inserting it into the page.

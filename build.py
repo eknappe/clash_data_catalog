@@ -86,7 +86,7 @@ total = len(datasets)
 total_gb = sum(d.get("size_gb", 0) or 0 for d in datasets) 
 
 # count how many datasets are associated with each observatory, for the sidebar filter counts and summary stats. 
-obs_counts = {obs: sum(1 for d in datasets if d.get("observatory") == obs) for obs in observatories}
+obs_counts = {obs: sum(1 for d in datasets if obs in (d.get("observatories") or [])) for obs in observatories}
 
 # timestamp shown in page header and footer, to indicate when the catalog was last updated. Using UTC time 
 yaml_mtime = os.path.getmtime('data/datasets.yaml')  

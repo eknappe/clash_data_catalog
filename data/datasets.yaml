@@ -15,8 +15,8 @@ datasets:
   - id: DS001
     name: "SoCal Lidar Campaign 2024"
     description: >
-      campaign measurement from a skateboard and with a puppy - we are testing the search function
-    pi: "Chuck Norris"
+      Airborne lidar campaign conducted in February 2024 over the San Gabriel Mountains in Southern California. Data includes high-resolution digital elevation models (DEMs) and point clouds.
+    pi: "Fernando Alonso"
     institution: "University of Southern California"
     personnel:
       - "Carlos Sainz"
@@ -39,7 +39,7 @@ datasets:
     spatial_resolution: "0.5 m"
     format: "GeoTIFF"
     size_gb: 10
-    data_level: "L1: Calibrated"
+    data_level: "L2: Quality Controlled"
     collection_status: Complete
     data_location: "/data/socal/lidar/2024_sangabriel/"
     access_notes: "Contact F1 for access."
@@ -59,6 +59,7 @@ datasets:
       - "Dora the Explorer"
     observatories:
       - Puerto Rico
+      - Appalachia
     data_type: Meteorological
     instrument: "Campbell Scientific CR1000X"
     parameters_measured:
@@ -74,7 +75,7 @@ datasets:
     collection_start: "2023-06-01"
     collection_end: ""
     temporal_resolution: "1 hour"
-    spatial_resolution: "Point network (12 stations)"
+    spatial_resolution: "Point network (2 stations)"
     format: "CSV"
     size_gb: 0.8
     data_level: "L1: Calibrated"
@@ -88,4 +89,45 @@ datasets:
       Station offline during time period because of hurricane. 
       Data gap flagged as possibly erroneous at this time period.
 
- 
+  - id: DS003
+    name: "GNSS stations in Nepal"
+    description: >
+      GNSS network installed in Nepal to monitor crustal deformation. Data includes daily position solutions and raw observation files.
+    pi: "Batman"
+    institution: "ETH Zurich"
+    personnel:
+      - "Bruce Wayne"
+      - "Alfred Pennyworth"
+      - "Robin"
+      - "Batgirl"
+    observatories:
+      - Network wide
+      - Other
+    data_type: Seismic / Geodetic
+    instrument: "Septentrio PolaRx5 GNSS Receiver"
+    parameters_measured:
+      - "Daily position solutions (latitude, longitude, height)"
+      - "Raw GNSS observation files (RINEX format)"
+    field_site: "Nepal"
+    spatial:
+      type: points
+      locations:
+        - {lat: 28.39, lon: 84.12}
+        - {lat: 27.98, lon: 85.34}
+        - {lat: 28.15, lon: 84.56}
+        - {lat: 28.22, lon: 84.78}
+    collection_start: "2014-06-01"
+    collection_end: ""
+    temporal_resolution: "30 minutes for raw data, daily for position solutions"
+    spatial_resolution: "Point network (4 stations)"
+    format: "RINEX for raw data, CSV for position solutions"
+    size_gb: 3
+    data_level: "L2b: Processed and Quality Controlled"
+    collection_status: Published
+    data_location: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    access_notes: "Available to all CLaSH project members."
+    doi: ""
+    publications: []
+    date_added: "2026-07-01"
+    notes: >
+      Data quality is generally good, but there are occasional gaps in the raw data due to power outages at the stations. Position solutions are available for all days, but some have higher uncertainty during periods of poor raw data coverage.

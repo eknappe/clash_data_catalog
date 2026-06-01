@@ -275,9 +275,9 @@ function cstatusClass(s) {
 // if >2 observatories, shows a compact "Multi-observatory (N)" summary.
 function renderObsTags(d) {
   const obs = d.observatories || [];
-  if (obs.length === 0) return '<span class="tag tag-obs-network">Network-wide</span>';
+  if (obs.length === 0) return '<span class="tag tag-obs-networkwide">Network-wide</span>';
   if (obs.length > 2)   return `<span class="tag tag-obs-networkwide">Multi-observatory (${obs.length})</span>`;
-  return obs.map(o => `<span class="tag tag-obs-${obsClass(o)}">${o}</span>`).join('');
+  return obs.map(o => `<span class="tag tag-obs-${obsClass(o)}">${o === 'Other' ? 'Other locations' : o}</span>`).join('');
 }
 
 // html-escapes a value before inserting it into the page.
