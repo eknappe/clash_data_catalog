@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CLaSH Dataset Catalog</title>
 
-  {# Google Fonts — IBM Plex family: Sans (body), Mono (codes/numbers), Serif (notes) #}
+  {# Google fonts #}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
-
+  {# map inset basemaps #}
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   {# style.css is copied into site/ alongside index.html by build.py #}
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -23,7 +25,7 @@
     <a href="https://www.geoclash.org" target="_blank" rel="noopener" class="logo">
       <img src="clash_logo.png" class="logo-mark" alt="CLaSH logo" />
       <div class="logo-text">
-        CLaSH Data Catalog
+        CLaSH Metadata Catalog
         <span>Network-wide · Internal Use Only</span>
       </div>
     </a>
@@ -376,6 +378,11 @@ function renderCard(d) {
   const dates   = [d.collection_start, d.collection_end].filter(Boolean).join(' → ') || '—';
   const obsList = (d.observatories || []).join(', ') || 'Network-wide';
 
+  // Map inset
+  const mapDiv = d.spatial
+    ? `<div id="map-${d.id}" style="height:220px; margin-top:1rem; border-radius:4px; border:1px solid var(--border); background:var(--bg);"></div>`
+    : '';
+
   // notes callout — only rendered if the field is non-empty
   const notes   = d.notes
     ? `<div class="detail-notes">${esc(d.notes)}</div>` : '';
@@ -437,6 +444,7 @@ function renderCard(d) {
       </div>
 
     </div>
+    ${mapDiv}
     ${notes}
   </div>
 </div>`;
@@ -450,6 +458,54 @@ function toggleCard(id) {
   const isOpen = detail.classList.contains('open');
   detail.classList.toggle('open',   !isOpen);
   card.classList.toggle('expanded', !isOpen);
+
+  if (!isOpen) {
+  const dataset = DATASETS.find(d => d.id === id);
+  if (dataset && dataset.spatial) {
+    setTimeout(() => initMap(id, dataset.spatial), 50);
+  }
+  }
+}
+
+
+// map fuction
+function initMap(id, spatial) {
+  const el = document.getElementById('map-' + id);
+  if (!el || el._leaflet_id) return;
+
+  const map = L.map('map-' + id, {
+    zoomControl: true,
+    scrollWheelZoom: false,
+  });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap © CARTO',
+    maxZoom: 19,
+  }).addTo(map);
+
+  if (spatial.type === 'points') {
+    const latlngs = spatial.locations.map(p => [p.lat, p.lon]);
+    latlngs.forEach((ll, i) => {
+      const m = L.circleMarker(ll, {
+        radius: 6, fillColor: '#fcb900', color: '#000',
+        weight: 1, opacity: 1, fillOpacity: 0.9,
+      }).addTo(map);
+      if (spatial.locations[i].name) m.bindTooltip(spatial.locations[i].name);
+    });
+    map.fitBounds(L.latLngBounds(latlngs), { padding: [30, 30] });
+
+  } else if (spatial.type === 'bboxes') {
+    const allBounds = [];
+    spatial.boxes.forEach(b => {
+      const bounds = [[b.south, b.west], [b.north, b.east]];
+      allBounds.push(...bounds);
+      const rect = L.rectangle(bounds, {
+        color: '#fcb900', weight: 2, fillOpacity: 0.1,
+      }).addTo(map);
+      if (b.name) rect.bindTooltip(b.name);
+    });
+    map.fitBounds(L.latLngBounds(allBounds), { padding: [30, 30] });
+  }
 }
 
 // main filter + sort + render function.
