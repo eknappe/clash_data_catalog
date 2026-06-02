@@ -10,7 +10,7 @@ on:
       - 'build.py' #changes to the build script
       - 'templates/**' #chandes to the HTML templates and style
       - '.github/workflows/deploy.yml' #changes to this file
-    workflow_dispatch: # allows manual triggering of the workflow
+  workflow_dispatch: # allows manual triggering of the workflow
 
 
 # permissions
@@ -38,25 +38,25 @@ jobs:
             uses: actions/checkout@v4 # checks out the repository code
     
         - name: Set up Python
-            uses: actions/setup-python@v5 # sets up a Python environment
-            with:
+          uses: actions/setup-python@v5 # sets up a Python environment
+          with:
               python-version: '3.11' 
     
         - name: Install dependencies
-            run: |
+          run: |
             python -m pip install --upgrade pip
             pip install pyyaml jinja2 # installs required Python packages
     
         - name: Build static site
-            run: |
+          run: |
             python build.py # runs the build script to generate HTML pages
     
         - name: bundle site/ directory as a pages artifact
-            uses: actions/upload-artifact@v3 # uploads the generated HTML pages as an artifact
-            with:
-              path: ./site #must match the output directory specified in build.py
+          uses: actions/upload-artifact@v3 # uploads the generated HTML pages as an artifact
+          with:
+            path: ./site #must match the output directory specified in build.py
 
         - name: Deploy to GitHub Pages
           id: deployment
-            uses: action/deploy-pages@v4 # deploys the generated HTML pages to GitHub Pages
+          uses: actions/deploy-pages@v4 # deploys the generated HTML pages to GitHub Pages
        
