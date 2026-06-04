@@ -15,16 +15,15 @@ datasets:
   - id: DS001
     name: "SoCal Lidar Campaign 2024"
     description: >
-      Airborne lidar campaign conducted in February 2024 over the San Gabriel Mountains in Southern
-      California. Data includes high-resolution digital elevation models (DEMs) and point clouds.
+      Airborne lidar campaign conducted in February 2024 over the San Gabriel Mountains in Southern California. Data includes high-resolution digital elevation models (DEMs) and point clouds.
     pi: "Fernando Alonso"
     institution: "University of Southern California"
     personnel:
       - "Carlos Sainz"
       - "Oscar Piastri"
     observatories:
-      - "SoCal"
-      - "Alaska"
+      - SoCal
+      - Alaska
     data_type: Airborne
     instrument: "some cool instrument"
     parameters_measured:
@@ -33,7 +32,7 @@ datasets:
     spatial:
       type: bboxes
       boxes:
-        - {north: 34.5, south: 34.0, east: -118.0, west: -118.5}
+        - {north: 34.5, south: 34.0, east: -118.0, west: -118.5}  
     collection_start: "2024-02-10"
     collection_end: "2024-02-14"
     temporal_resolution: "Single campaign"
@@ -45,9 +44,9 @@ datasets:
     data_location: "/data/socal/lidar/2024_sangabriel/"
     access_notes: "Contact F1 for access."
     doi: ""
+    publications: []
     date_added: "2024-03-15"
-    notes: >
-      snazzy notes here about the equiment, data quality, etc.
+    notes: "snazzy notes here about the equiment, data quality, etc."
 
   - id: DS002
     name: "Puerto Rico Weather Station"
@@ -59,8 +58,8 @@ datasets:
       - "Luke Skywalker"
       - "Dora the Explorer"
     observatories:
-      - "Puerto Rico"
-      - "Appalachia"
+      - Puerto Rico
+      - Appalachia
     data_type: Meteorological
     instrument: "Campbell Scientific CR1000X"
     parameters_measured:
@@ -84,26 +83,26 @@ datasets:
     data_location: "/data/puertorico/met/luquillo_raingauges/"
     access_notes: "Available to all CLaSH project members."
     doi: ""
+    publications: []
     date_added: "2023-07-01"
     notes: >
-      Station offline during time period because of hurricane.  Data gap flagged as possibly erroneous at
-      this time period.
+      Station offline during time period because of hurricane. 
+      Data gap flagged as possibly erroneous at this time period.
 
   - id: DS003
     name: "GNSS stations in Nepal"
     description: >
-      GNSS network installed in Nepal to monitor crustal deformation. Data includes daily position
-      solutions and raw observation files.
+      GNSS network installed in Nepal to monitor crustal deformation. Data includes daily position solutions and raw observation files.
     pi: "Batman"
     institution: "ETH Zurich"
-    primary_contact: "Bruce Wayne"
     personnel:
+      - "Bruce Wayne"
       - "Alfred Pennyworth"
       - "Robin"
       - "Batgirl"
     observatories:
-      - "Network wide"
-      - "Other"
+      - Network wide
+      - Other
     data_type: Seismic / Geodetic
     instrument: "Septentrio PolaRx5 GNSS Receiver"
     parameters_measured:
@@ -124,51 +123,11 @@ datasets:
     format: "RINEX for raw data, CSV for position solutions"
     size_gb: 3
     data_level: "L2b: Processed and Quality Controlled"
-    processing_contact: "Bruce Wayne"
     collection_status: Published
     data_location: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     access_notes: "Available to all CLaSH project members."
     doi: ""
+    publications: []
     date_added: "2026-07-01"
     notes: >
-      Data quality is generally good, but there are occasional gaps in the raw data due to power outages
-      at the stations. Position solutions are available for all days, but some have higher uncertainty
-      during periods of poor raw data coverage.
-
-  - id: DS004
-    name: "testing title"
-    description: >
-      a bunch of really good info here. description. wow!
-    pi: "El Knappe"
-    institution: "UMich"
-    personnel:
-      - "Spongebob Squarepant"
-      - "Plankton"
-      - "Patrick Star"
-    observatories:
-      - "Alaska"
-      - "Network wide"
-    data_type: Seismic / Geodetic
-    instrument: "GNSS, weather station, fancy things"
-    parameters_measured:
-      - "position"
-      - "rainfall"
-      - "snow depth"
-    field_site: "Seward, AK"
-    spatial:
-      type: points
-      locations:
-        - {lat: 60.15573, lon: -149.357437}
-        - {lat: 60.148712, lon: -149.334073}
-        - {lat: 60.143567, lon: -149.301782}
-    temporal_resolution: "15 second collection"
-    spatial_resolution: "3 stations, point"
-    format: "csv"
-    size_gb: 5.0
-    data_level: "L2a: Quality controlled data"
-    collection_status: Active - ongoing collection
-    data_location: "https://www.youtube.com/watch?v=PNWsW6c6t8g&list=RDPNWsW6c6t8g&start_radio=1"
-    doi: "10.xxx"
-    date_added: "2026-06-04"
-    notes: >
-      nope, everything is perfect
+      Data quality is generally good, but there are occasional gaps in the raw data due to power outages at the stations. Position solutions are available for all days, but some have higher uncertainty during periods of poor raw data coverage.

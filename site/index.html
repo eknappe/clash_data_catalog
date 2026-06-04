@@ -28,7 +28,7 @@
         <span>Network-wide · Internal Use Only</span>
       </div>
     </a>
-    <div class="build-time">Data last updated at 2026-06-01 09:43 UTC</div>
+    <div class="build-time">Data last updated at 2026-06-04 09:01 UTC</div>
   </div>
 </header>
 
@@ -38,12 +38,12 @@
   <div class="stats-inner">
 
     <div class="stat">
-      <div class="stat-value">3</div>
+      <div class="stat-value">4</div>
       <div class="stat-label">Datasets</div>
     </div>
 
     <div class="stat">
-      <div class="stat-value">14 GB</div>
+      <div class="stat-value">19 GB</div>
       <div class="stat-label">Total Size</div>
     </div>
 
@@ -51,7 +51,7 @@
     <div class="stat">
       
       <div class="stat-value" style="color:var(--alaska)">
-        1
+        2
       </div>
       <div class="stat-label">Alaska</div>
     </div>
@@ -83,7 +83,7 @@
     <div class="stat">
       
       <div class="stat-value" style="color:var(--network-wide)">
-        1
+        2
       </div>
       <div class="stat-label">Network wide</div>
     </div>
@@ -320,7 +320,7 @@
 
     
     <div class="results-header">
-      <div class="results-count" id="resultsCount">Showing 3 datasets</div>
+      <div class="results-count" id="resultsCount">Showing 4 datasets</div>
       <select class="sort-select" onchange="applyFilters()" id="sortSelect">
         <option value="date_desc">Newest first</option>
         <option value="date_asc">Oldest first</option>
@@ -346,6 +346,7 @@
 <script>
 // full dataset array embedded at build time by build.py.
 // each element is an object with all fields from datasets.yaml.
+// sort so newest at the top
 const DATASETS = [
   {
     "id": "DS001",
@@ -389,9 +390,8 @@ const DATASETS = [
     "data_location": "/data/socal/lidar/2024_sangabriel/",
     "access_notes": "Contact F1 for access.",
     "doi": "",
-    "publications": [],
     "date_added": "2024-03-15",
-    "notes": "snazzy notes here about the equiment, data quality, etc."
+    "notes": "snazzy notes here about the equiment, data quality, etc.\n"
   },
   {
     "id": "DS002",
@@ -439,7 +439,6 @@ const DATASETS = [
     "data_location": "/data/puertorico/met/luquillo_raingauges/",
     "access_notes": "Available to all CLaSH project members.",
     "doi": "",
-    "publications": [],
     "date_added": "2023-07-01",
     "notes": "Station offline during time period because of hurricane.  Data gap flagged as possibly erroneous at this time period.\n"
   },
@@ -449,8 +448,8 @@ const DATASETS = [
     "description": "GNSS network installed in Nepal to monitor crustal deformation. Data includes daily position solutions and raw observation files.\n",
     "pi": "Batman",
     "institution": "ETH Zurich",
+    "primary_contact": "Bruce Wayne",
     "personnel": [
-      "Bruce Wayne",
       "Alfred Pennyworth",
       "Robin",
       "Batgirl"
@@ -494,15 +493,67 @@ const DATASETS = [
     "format": "RINEX for raw data, CSV for position solutions",
     "size_gb": 3,
     "data_level": "L2b: Processed and Quality Controlled",
+    "processing_contact": "Bruce Wayne",
     "collection_status": "Published",
     "data_location": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     "access_notes": "Available to all CLaSH project members.",
     "doi": "",
-    "publications": [],
     "date_added": "2026-07-01",
     "notes": "Data quality is generally good, but there are occasional gaps in the raw data due to power outages at the stations. Position solutions are available for all days, but some have higher uncertainty during periods of poor raw data coverage.\n"
+  },
+  {
+    "id": "DS004",
+    "name": "testing title",
+    "description": "a bunch of really good info here. description. wow!\n",
+    "pi": "El Knappe",
+    "institution": "UMich",
+    "personnel": [
+      "Spongebob Squarepant",
+      "Plankton",
+      "Patrick Star"
+    ],
+    "observatories": [
+      "Alaska",
+      "Network wide"
+    ],
+    "data_type": "Seismic / Geodetic",
+    "instrument": "GNSS, weather station, fancy things",
+    "parameters_measured": [
+      "position",
+      "rainfall",
+      "snow depth"
+    ],
+    "field_site": "Seward, AK",
+    "spatial": {
+      "type": "points",
+      "locations": [
+        {
+          "lat": 60.15573,
+          "lon": -149.357437
+        },
+        {
+          "lat": 60.148712,
+          "lon": -149.334073
+        },
+        {
+          "lat": 60.143567,
+          "lon": -149.301782
+        }
+      ]
+    },
+    "temporal_resolution": "15 second collection",
+    "spatial_resolution": "3 stations, point",
+    "format": "csv",
+    "size_gb": 5.0,
+    "data_level": "L2a: Quality controlled data",
+    "collection_status": "Active - ongoing collection",
+    "data_location": "https://www.youtube.com/watch?v=PNWsW6c6t8g&list=RDPNWsW6c6t8g&start_radio=1",
+    "doi": "10.xxx",
+    "date_added": "2026-06-04",
+    "notes": "nope, everything is perfect\n"
   }
 ];
+DATASETS.sort((a, b) => (b.date_added || '').localeCompare(a.date_added || ''));
 
 // active filter state — one entry per filter group.
 // 'all' means no filter applied for that group.
@@ -690,6 +741,7 @@ function renderCard(d) {
         <div class="detail-section-title">Collection</div>
         ${row('PI',                d.pi)}
         ${row('Institution',       d.institution)}
+        ${row('Primary contact',   d.primary_contact)}
         ${row('Personnel',         personnel)}
         ${row('Observatory',       obsList)}
         ${row('Field Site',        d.field_site)}
@@ -701,6 +753,7 @@ function renderCard(d) {
         <div class="detail-section-title">Data</div>
         ${row('Data Type',         d.data_type)}
         ${row('Data Level',        d.data_level)}
+        ${row('Processing contact', d.processing_contact)}
         ${row('Collection Status', d.collection_status)}
         ${row('Instrument',        d.instrument)}
         ${row('Parameters',        params)}

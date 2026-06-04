@@ -227,7 +227,9 @@
 <script>
 // full dataset array embedded at build time by build.py.
 // each element is an object with all fields from datasets.yaml.
+// sort so newest at the top
 const DATASETS = {{ datasets_json }};
+DATASETS.sort((a, b) => (b.date_added || '').localeCompare(a.date_added || ''));
 
 // active filter state — one entry per filter group.
 // 'all' means no filter applied for that group.
@@ -415,6 +417,7 @@ function renderCard(d) {
         <div class="detail-section-title">Collection</div>
         ${row('PI',                d.pi)}
         ${row('Institution',       d.institution)}
+        ${row('Primary contact',   d.primary_contact)}
         ${row('Personnel',         personnel)}
         ${row('Observatory',       obsList)}
         ${row('Field Site',        d.field_site)}
@@ -426,6 +429,7 @@ function renderCard(d) {
         <div class="detail-section-title">Data</div>
         ${row('Data Type',         d.data_type)}
         ${row('Data Level',        d.data_level)}
+        ${row('Processing contact', d.processing_contact)}
         ${row('Collection Status', d.collection_status)}
         ${row('Instrument',        d.instrument)}
         ${row('Parameters',        params)}

@@ -149,7 +149,7 @@ header {
   align-items: start;
 }
 
-/* sidebar styles */
+/* sidebar styles , removing maxheight for now: max-height: calc(100vh - 80px);*/
 
 .sidebar {
   position: sticky;
@@ -157,8 +157,7 @@ header {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 6px;
-  overflow: hidden;
-  max-height: calc(100vh - 80px);
+  overflow: hidden; 
   overflow-y: auto;
 }
 .sidebar-section {
