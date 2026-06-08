@@ -41,15 +41,19 @@ OUTPUT_CSS    = os.path.join(OUTPUT_DIR, "style.css")
 ## Hardcoded metadata about the catalog ##
 observatories = ["Alaska", "Appalachia", "SoCal", "Puerto Rico",  "Network wide", "Other"]
 DATA_TYPES = [
-    "Airborne",
-    "Drone / UAS",
-    "Hydrologic",
-    "Meteorological",
-    "Seismic / Geodetic",
+    "Elevation",
+    "Imagery",
+    "Field observations",
+    "Geochemical",
+    "Geological",
+    "Geophysical",
     "Geotechnical",
-    "Remote Sensing",
-    "Laboratory",
-    "Model Output",
+    "Ground cover",
+    "Hydrological",
+    "Laboratory / Analytical",
+    "Meteorological / Climatological",
+    "Model output",
+    "Sedimentological / Soil",
     "Other",
 ]
 

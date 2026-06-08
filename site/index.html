@@ -28,7 +28,7 @@
         <span>Network-wide · Internal Use Only</span>
       </div>
     </a>
-    <div class="build-time">Data last updated at 2026-06-04 09:01 UTC</div>
+    <div class="build-time">Data last updated at 2026-06-08 11:42 UTC</div>
   </div>
 </header>
 
@@ -193,40 +193,56 @@
               data-group="type" data-val="all">All types</button>
       
       <button class="filter-btn"
-              onclick="toggleFilter(this,'type','Airborne')"
-              data-group="type" data-val="Airborne">Airborne</button>
+              onclick="toggleFilter(this,'type','Elevation')"
+              data-group="type" data-val="Elevation">Elevation</button>
       
       <button class="filter-btn"
-              onclick="toggleFilter(this,'type','Drone / UAS')"
-              data-group="type" data-val="Drone / UAS">Drone / UAS</button>
+              onclick="toggleFilter(this,'type','Imagery')"
+              data-group="type" data-val="Imagery">Imagery</button>
       
       <button class="filter-btn"
-              onclick="toggleFilter(this,'type','Hydrologic')"
-              data-group="type" data-val="Hydrologic">Hydrologic</button>
+              onclick="toggleFilter(this,'type','Field observations')"
+              data-group="type" data-val="Field observations">Field observations</button>
       
       <button class="filter-btn"
-              onclick="toggleFilter(this,'type','Meteorological')"
-              data-group="type" data-val="Meteorological">Meteorological</button>
+              onclick="toggleFilter(this,'type','Geochemical')"
+              data-group="type" data-val="Geochemical">Geochemical</button>
       
       <button class="filter-btn"
-              onclick="toggleFilter(this,'type','Seismic / Geodetic')"
-              data-group="type" data-val="Seismic / Geodetic">Seismic / Geodetic</button>
+              onclick="toggleFilter(this,'type','Geological')"
+              data-group="type" data-val="Geological">Geological</button>
+      
+      <button class="filter-btn"
+              onclick="toggleFilter(this,'type','Geophysical')"
+              data-group="type" data-val="Geophysical">Geophysical</button>
       
       <button class="filter-btn"
               onclick="toggleFilter(this,'type','Geotechnical')"
               data-group="type" data-val="Geotechnical">Geotechnical</button>
       
       <button class="filter-btn"
-              onclick="toggleFilter(this,'type','Remote Sensing')"
-              data-group="type" data-val="Remote Sensing">Remote Sensing</button>
+              onclick="toggleFilter(this,'type','Ground cover')"
+              data-group="type" data-val="Ground cover">Ground cover</button>
       
       <button class="filter-btn"
-              onclick="toggleFilter(this,'type','Laboratory')"
-              data-group="type" data-val="Laboratory">Laboratory</button>
+              onclick="toggleFilter(this,'type','Hydrological')"
+              data-group="type" data-val="Hydrological">Hydrological</button>
       
       <button class="filter-btn"
-              onclick="toggleFilter(this,'type','Model Output')"
-              data-group="type" data-val="Model Output">Model Output</button>
+              onclick="toggleFilter(this,'type','Laboratory / Analytical')"
+              data-group="type" data-val="Laboratory / Analytical">Laboratory / Analytical</button>
+      
+      <button class="filter-btn"
+              onclick="toggleFilter(this,'type','Meteorological / Climatological')"
+              data-group="type" data-val="Meteorological / Climatological">Meteorological / Climatological</button>
+      
+      <button class="filter-btn"
+              onclick="toggleFilter(this,'type','Model output')"
+              data-group="type" data-val="Model output">Model output</button>
+      
+      <button class="filter-btn"
+              onclick="toggleFilter(this,'type','Sedimentological / Soil')"
+              data-group="type" data-val="Sedimentological / Soil">Sedimentological / Soil</button>
       
       <button class="filter-btn"
               onclick="toggleFilter(this,'type','Other')"
@@ -362,7 +378,10 @@ const DATASETS = [
       "SoCal",
       "Alaska"
     ],
-    "data_type": "Airborne",
+    "data_type": [
+      "Elevation",
+      "Imagery"
+    ],
     "instrument": "some cool instrument",
     "parameters_measured": [
       "DEM"
@@ -407,7 +426,10 @@ const DATASETS = [
       "Puerto Rico",
       "Appalachia"
     ],
-    "data_type": "Meteorological",
+    "data_type": [
+      "Meteorological",
+      "Hydrological"
+    ],
     "instrument": "Campbell Scientific CR1000X",
     "parameters_measured": [
       "Precipitation (mm/hr)",
@@ -458,7 +480,9 @@ const DATASETS = [
       "Network wide",
       "Other"
     ],
-    "data_type": "Seismic / Geodetic",
+    "data_type": [
+      "Geophysical"
+    ],
     "instrument": "Septentrio PolaRx5 GNSS Receiver",
     "parameters_measured": [
       "Daily position solutions (latitude, longitude, height)",
@@ -516,7 +540,12 @@ const DATASETS = [
       "Alaska",
       "Network wide"
     ],
-    "data_type": "Seismic / Geodetic",
+    "data_type": [
+      "Geophysical",
+      "Meteorological",
+      "Hydrological",
+      "Field observations"
+    ],
     "instrument": "GNSS, weather station, fancy things",
     "parameters_measured": [
       "position",
@@ -689,8 +718,8 @@ function updateClearBtn() {
 //   - detail panel (hidden until clicked): full metadata grid + notes
 function renderCard(d) {
   const obsTags    = renderObsTags(d);
-  const typeTag    = d.data_type
-    ? `<span class="tag tag-type">${esc(d.data_type)}</span>` : '';
+  const types = Array.isArray(d.data_type) ? d.data_type : (d.data_type ? [d.data_type] : []);
+  const typeTag = types.map(t => `<span class="tag tag-type">${esc(t)}</span>`).join(''); 
 
   // pplit "L2a: Quality controlled data" into code and label
   const levelCode  = d.data_level ? d.data_level.split(':')[0] : '';
@@ -869,14 +898,15 @@ function applyFilters() {
     }
 
     // exact-match filters for controlled-vocabulary fields
-    if (filters.type    !== 'all' && d.data_type        !== filters.type)    return false;
+    const dtypes = Array.isArray(d.data_type) ? d.data_type : (d.data_type ? [d.data_type] : []);
+    if (filters.type !== 'all' && !dtypes.includes(filters.type)) return false;
     if (filters.level   !== 'all' && d.data_level        !== filters.level)   return false;
     if (filters.cstatus !== 'all' && d.collection_status !== filters.cstatus) return false;
 
     // free-text search — checks a concatenation of all searchable fields
     if (q) {
       const blob = [
-        d.name, d.description, d.pi, d.institution, d.field_site,
+        d.name, d.description, d.pi, d.institution, d.field_site, (Array.isArray(d.data_type) ? d.data_type : (d.data_type ? [d.data_type] : [])),
         d.data_type, d.data_level, d.collection_status, d.instrument,
         getDateStr(d),
         ...(d.observatories       || []),

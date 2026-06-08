@@ -365,8 +365,8 @@ function updateClearBtn() {
 //   - detail panel (hidden until clicked): full metadata grid + notes
 function renderCard(d) {
   const obsTags    = renderObsTags(d);
-  const typeTag    = d.data_type
-    ? `<span class="tag tag-type">${esc(d.data_type)}</span>` : '';
+  const types = Array.isArray(d.data_type) ? d.data_type : (d.data_type ? [d.data_type] : []);
+  const typeTag = types.map(t => `<span class="tag tag-type">${esc(t)}</span>`).join(''); 
 
   // pplit "L2a: Quality controlled data" into code and label
   const levelCode  = d.data_level ? d.data_level.split(':')[0] : '';
@@ -545,14 +545,15 @@ function applyFilters() {
     }
 
     // exact-match filters for controlled-vocabulary fields
-    if (filters.type    !== 'all' && d.data_type        !== filters.type)    return false;
+    const dtypes = Array.isArray(d.data_type) ? d.data_type : (d.data_type ? [d.data_type] : []);
+    if (filters.type !== 'all' && !dtypes.includes(filters.type)) return false;
     if (filters.level   !== 'all' && d.data_level        !== filters.level)   return false;
     if (filters.cstatus !== 'all' && d.collection_status !== filters.cstatus) return false;
 
     // free-text search — checks a concatenation of all searchable fields
     if (q) {
       const blob = [
-        d.name, d.description, d.pi, d.institution, d.field_site,
+        d.name, d.description, d.pi, d.institution, d.field_site, (Array.isArray(d.data_type) ? d.data_type : (d.data_type ? [d.data_type] : [])),
         d.data_type, d.data_level, d.collection_status, d.instrument,
         getDateStr(d),
         ...(d.observatories       || []),

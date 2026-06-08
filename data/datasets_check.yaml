@@ -25,9 +25,7 @@ datasets:
     observatories:
       - "SoCal"
       - "Alaska"
-    data_type: 
-      - "Elevation"
-      - "Imagery"
+    data_type: Airborne
     instrument: "some cool instrument"
     parameters_measured:
       - "DEM"
@@ -63,9 +61,7 @@ datasets:
     observatories:
       - "Puerto Rico"
       - "Appalachia"
-    data_type: 
-      - "Meteorological"
-      - "Hydrological"
+    data_type: Meteorological
     instrument: "Campbell Scientific CR1000X"
     parameters_measured:
       - "Precipitation (mm/hr)"
@@ -108,8 +104,7 @@ datasets:
     observatories:
       - "Network wide"
       - "Other"
-    data_type: 
-      - "Geophysical"
+    data_type: Seismic / Geodetic
     instrument: "Septentrio PolaRx5 GNSS Receiver"
     parameters_measured:
       - "Daily position solutions (latitude, longitude, height)"
@@ -153,11 +148,7 @@ datasets:
     observatories:
       - "Alaska"
       - "Network wide"
-    data_type: 
-      - "Geophysical"
-      - "Meteorological"
-      - "Hydrological"
-      - "Field observations"
+    data_type: Seismic / Geodetic
     instrument: "GNSS, weather station, fancy things"
     parameters_measured:
       - "position"

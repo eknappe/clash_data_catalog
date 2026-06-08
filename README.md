@@ -46,6 +46,7 @@ Open `data/datasets.yaml` and add a new entry following the below structure. Req
     ...
   pi: "..."                          # * PI full name
   institution: "..."                 # * university or organisation
+  primary_contact: "..."             # primary contact for the data if different from PI
   personnel:                         # list of contributors/co-authors
     - "..."
   observatories:                     # * list — use exact names below, can list multiple
@@ -67,6 +68,7 @@ Open `data/datasets.yaml` and add a new entry following the below structure. Req
   format: "..."                      # e.g. "CSV", "GeoTIFF", "miniSEED"
   size_gb:                           # approximate size as a number
   data_level: "..."                  # * see controlled vocabulary below
+  processing_contact: "..."          # who to contact about the data processing
   collection_status: "..."           # * Active | Complete | Published
   data_location: "..."               # server path or link to where data lives
   access_notes: "..."                # who can access, any restrictions

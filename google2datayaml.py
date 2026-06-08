@@ -20,7 +20,7 @@ yaml_path = data_directory / 'datasets.yaml'
 yaml_save = data_directory / 'datasets_check.yaml' #don't want to overwrite the current, until checked
 
 # do you want to update everything, e.g. reprocess the old datasets
-UPDATE = False #set to True 
+UPDATE = True #set to True 
 
 
 ### Column mapping ###
@@ -58,7 +58,7 @@ column_map = {
 }
 
 # list fields - field that should become yaml lists 
-list_fields = {'observatories', 'personnel', 'parameters_measured'}
+list_fields = {'observatories', 'personnel', 'parameters_measured', 'data_type'}
 
 # field that has to be numeric (because we calculate total amount using)
 numeric_fields = {'size_gb'}
@@ -90,8 +90,7 @@ field_order = [
 no_quote_fields = {'observatories', 'size_gb', 'collection_status', 'data_type', 'id'}
 
 # fields that are lists of simple strings
-list_string_fields = {'personnel', 'parameters_measured', 'observatories'}
-
+list_string_fields = {'personnel', 'parameters_measured', 'observatories', 'data_type'}
 
 
 ########## conjunction junction whats your function ##########
