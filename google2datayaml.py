@@ -7,6 +7,7 @@ import os
 import yaml
 import csv
 import zipfile
+import tempfile
 import xml.etree.ElementTree as ET
 
 # set working directory to be the current folder
@@ -22,6 +23,9 @@ geo_directory = working_directory / 'data/gdownload/geofiles'
 #where the exisiting dataset lives
 yaml_path = data_directory / 'datasets.yaml' 
 yaml_save = data_directory / 'datasets_check.yaml' #don't want to overwrite the current, until checked
+
+# if a shapefile has more separate (non-overlapping) areas than this, collapse to one overall box
+MAX_BOXES_PER_FILE = 10
 
 # do you want to update everything, e.g. reprocess the old datasets
 UPDATE = True #set to True 
@@ -173,23 +177,76 @@ def bbox_from_kmz(filepath):
         print(f"  warning: could not read KMZ {filepath.name}: {e}")
         return None
 
-# extract bounding box from a shapefile (.shp or .zip containing a shapefile)
-# returns (north, south, east, west) or None
+# merge boxes that overlap/touch, so 6 polygons in 2 clusters become 2 boxes
+# boxes are [west, south, east, north]
+def merge_overlapping(boxes):
+    boxes = [list(b) for b in boxes]
+    changed = True
+    while changed:
+        changed = False
+        out = []
+        while boxes:
+            a = boxes.pop()
+            i = 0
+            while i < len(boxes):
+                b = boxes[i]
+                if a[0] <= b[2] and b[0] <= a[2] and a[1] <= b[3] and b[1] <= a[3]:
+                    a = [min(a[0], b[0]), min(a[1], b[1]), max(a[2], b[2]), max(a[3], b[3])]
+                    boxes.pop(i)
+                    changed = True
+                    i = 0  # a grew, so re-check against everything left
+                else:
+                    i += 1
+            out.append(a)
+        boxes = out
+    return boxes
+
+# extract bounding box(es) from a shapefile (.shp, or a .zip containing one)
+# returns a list of (north, south, east, west) tuples, or None
 def bbox_from_shapefile(filepath):
     try:
         import geopandas as gpd
-        # geopandas can read a .zip directly if it contains a .shp
         read_path = filepath
-        if filepath.suffix.lower() == '.zip':
-            read_path = f'zip://{filepath}'
-        gdf = gpd.read_file(read_path)
+        # unzip ourselves rather than using geopandas' zip:// -- GDAL fails on zips made by
+        # macOS "Compress" (files inside a subfolder + a __MACOSX junk folder)
+        with tempfile.TemporaryDirectory() as tmp:
+            if filepath.suffix.lower() == '.zip':
+                with zipfile.ZipFile(filepath) as z:
+                    members = [n for n in z.namelist()
+                               if not n.startswith('__MACOSX')
+                               and not Path(n).name.startswith('._')]
+                    z.extractall(tmp, members=members)
+                found = sorted(p for p in Path(tmp).rglob('*') if p.suffix.lower() == '.shp')
+                if not found:
+                    print(f"  warning: no .shp found inside {filepath.name}; contents: {members}")
+                    return None
+                if len(found) > 1:
+                    print(f"  warning: {filepath.name} has {len(found)} shapefiles, using {found[0].name}")
+                read_path = found[0]
+            gdf = gpd.read_file(read_path)  # read while the temp files still exist
+
         if gdf.empty:
-            print(f"  warning: shapefile {filepath.name} is empty")
+            print(f"  warning: {filepath.name} contains no features (empty shapefile)")
+            return None
+        if gdf.crs is None:
+            print(f"  warning: {filepath.name} has no CRS (missing or unreadable .prj?)")
             return None
         # reproject to WGS84 (EPSG:4326) in case the file uses a local CRS
         gdf = gdf.to_crs(epsg=4326)
+
+        # points (or anything mixed with points): one overall box
         minx, miny, maxx, maxy = gdf.total_bounds  # (W, S, E, N)
-        return maxy, miny, maxx, minx  # N, S, E, W
+        overall = [(maxy, miny, maxx, minx)]
+        if gdf.geom_type.str.contains('Point').any():
+            return overall
+
+        # polygons/lines: one box per feature, merging overlapping ones
+        per_feature = [list(b) for b in gdf.geometry.bounds.dropna().values]
+        merged = merge_overlapping(per_feature)
+        if len(merged) > MAX_BOXES_PER_FILE:
+            print(f"  note: {filepath.name} has {len(merged)} separate areas, using one overall box")
+            return overall
+        return [(n, s_, e, w) for w, s_, e, n in merged]  # N, S, E, W
     except Exception as e:
         print(f"  warning: could not read shapefile {filepath.name}: {e}")
         return None
@@ -211,7 +268,8 @@ def bbox_from_filename(filename, geo_dir):
 
     ext = geo_file.suffix.lower()
     if ext == '.kmz':
-        result = bbox_from_kmz(geo_file)
+        kmz_box = bbox_from_kmz(geo_file)
+        result = [kmz_box] if kmz_box else None
     elif ext in ('.shp', '.zip'):
         result = bbox_from_shapefile(geo_file)
     else:
@@ -221,8 +279,8 @@ def bbox_from_filename(filename, geo_dir):
     if result is None:
         return None
 
-    north, south, east, west = result
-    return {'type': 'bboxes', 'boxes': [{'north': north, 'south': south, 'east': east, 'west': west}]}
+    return {'type': 'bboxes',
+            'boxes': [{'north': n, 'south': s, 'east': e, 'west': w} for n, s, e, w in result]}
 
 
 

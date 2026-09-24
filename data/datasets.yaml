@@ -59,3 +59,414 @@ datasets:
     collection_status: Complete - collection finished
     data_location: "On UMich servers contact Sally Keating for access"
     date_added: "2026-08-12"
+
+  - id: DS003
+    name: "Debris flow monitoring stations after 2025 Palisades Fire (inc. geophones)"
+    description: >
+      Detecting the initiation, timing, and magnitude of debris flows based on seismic data across five
+      different catchments. It contains geophones data along the river channels and co-located rain gauges
+      data.
+    pi: "Seulgi Moon"
+    institution: "University of California Los Angeles"
+    observatories:
+      - "SoCal"
+    data_type:
+      - "Field observations"
+      - "Geophysical"
+      - "Meteorological / Climatological"
+    field_site: "Santa Monica Mountains, CA"
+    spatial:
+      type: bboxes
+      boxes:
+        - {north: 34.10843262893053, south: 34.04994444444444, east: -118.5047439853305, west: -118.5872992345502}
+    collection_start: "2025-11-15"
+    temporal_resolution: "1min for rain gauge while 50Hz for geophones"
+    format: "DAT"
+    data_level: "L0: Raw observation"
+    data_location: "https://ucla.app.box.com/folder/358714818361, UCLA box platform, contact for access"
+    date_added: "2026-08-11"
+
+  - id: DS004
+    name: "Palisades Hammer Seismic Survey (April 2026)"
+    description: >
+      Active source seismic survey using sledge hammer source for pwave and surface wave analysis.
+      Collected at two focus catchments in the Palisades fire burn area to supplement ERT datasets.
+    pi: "Marin Clark"
+    institution: "University of Michigan"
+    primary_contact: "Sally Keating (sakeatin@umich.edu)"
+    personnel:
+      - "Adit Ghosh"
+    observatories:
+      - "SoCal"
+    data_type:
+      - "Geophysical"
+    instrument: "Geometrics Geode Seismograph, 8kg sledge hammer, HDPE strike plate"
+    parameters_measured:
+      - "1D pwave and surface wave velocity"
+    field_site: "Santa Monica Mountains, Los Angeles, CA"
+    spatial:
+      type: bboxes
+      boxes:
+        - {north: 34.10864571800005, south: 34.05457335600005, east: -118.5046355329999, west: -118.554644497}
+    collection_start: "2026-04-25"
+    collection_end: "2026-04-26"
+    temporal_resolution: "Single campaign"
+    spatial_resolution: "15-20m depth"
+    format: "SEG2 waveform files (.DAT)"
+    size_gb: 0.1
+    data_level: "L2a: Quality controlled data"
+    collection_status: Complete - collection finished
+    data_location: "On UMich servers contact Sally Keating for access"
+    date_added: "2026-08-12"
+
+  - id: DS005
+    name: "Palisades fire ERT, water isotopes data, and saturated infiltration data"
+    description: >
+      Electrical resistivity tomography (ERT): Six to seven repeat surveys documenting changes in
+      subsurface moisture across the Mandeville burned, Mandeville unburned, Rustic Canyon, Santa Ynez,
+      Parker Mesa, and Topanga West catchments, conducted from March 2025 through February 2026.  Water-
+      isotope analyses: Measurements documenting temporal changes in the contribution of subsurface
+      moisture to streamflow in the Mandeville burned, Mandeville unburned, and Topanga West catchments,
+      conducted from January 2025 through February 2026.  Saturated hydraulic conductivity: Measurements
+      collected in the Mandeville burned, Mandeville unburned, Rustic Canyon, Santa Ynez, and Topanga West
+      catchments.
+    pi: "Josh West"
+    institution: "University of Southern California"
+    personnel:
+      - "Sally Keating"
+      - "Marin Clark"
+      - "Benjamin Tan"
+      - "Seulgi Moon"
+      - "Rain Blankenship"
+      - "Yang Ma"
+    observatories:
+      - "SoCal"
+    data_type:
+      - "Field observations"
+      - "Geochemical"
+      - "Geophysical"
+      - "Hydrological"
+      - "Sedimentological / Soil"
+    instrument: "Syscal Pro electrical resistivity tomography"
+    field_site: "Santa Monica Mountains"
+    spatial:
+      type: bboxes
+      boxes:
+        - {north: 34.120738, south: 34.05195589775913, east: -118.503026, west: -118.5873890657853}
+    collection_start: "2025-01-28"
+    collection_end: "2026-05-31"
+    temporal_resolution: "Seven ERT campaigns, over 20 water isotope campaigns"
+    spatial_resolution: "6 catchements"
+    format: "RESIPY, xlsx"
+    size_gb: 1.0
+    data_level: "L3: Aggregated data"
+    collection_status: Complete - collection finished
+    data_location: "Local drive. I can upload finalized versions to clash drive."
+    date_added: "2026-08-28"
+
+  - id: DS006
+    name: "LiDAR Drone Flights Over Palisades Fire"
+    description: >
+      These are LiDAR drone flights collected over Mandeville and Topanga Canyon between water years of
+      2025-2026 after the Palisades fire.
+    pi: "Seulgi Moon"
+    institution: "UCLA"
+    personnel:
+      - "Yang Ma"
+      - "Adit Ghosh"
+      - "David A. Paige"
+      - "Josh A. West"
+      - "Tyler Horvath"
+      - "Louis Bouchard"
+    observatories:
+      - "SoCal"
+    data_type:
+      - "Elevation"
+    instrument: "LiDAR point clouds"
+    parameters_measured:
+      - "Elevation"
+      - "RGB"
+      - "Point Cloud Returns"
+    field_site: "Santa Monica Mountains"
+    spatial:
+      type: points
+      locations:
+        - {lat: 34.0748, lon: 34.0531}
+        - {lat: 34.1221, lon: 34.1024}
+    collection_start: "2025-02-11"
+    spatial_resolution: "0.5m"
+    format: "TIF"
+    size_gb: 0.63
+    data_level: "L4: Derived products"
+    collection_status: Active - ongoing collection
+    data_location: "Will need CLaSH storage space unless storing on UCLA box server is fine."
+    date_added: "2026-08-28"
+    notes: >
+      Topanga dates: 11 Feb 2025, 18 Feb 2025, 5 Mar 2025, 7 Mar 2025, 22 Mar 2025, 25 Oct 2025, 22 Dec
+      2025, 9 Feb 2026, 1 Mar 2026 Mandeville dates: 11 Feb 2025, 18 Feb 2025, 22 Dec 2025, 20 Jan 2026, 9
+      Feb 2026, 1 Mar 2026
+
+  - id: DS007
+    name: "Repeat UAV Lidar Surveys Following the 2025 Eaton Fire"
+    description: >
+      The data consist of repeated UAV lidar surveys collected after the Eaton Fire across 14 debris
+      basins and five Bailey catchments between January and March 2025. The surveys produced high-density
+      point clouds, orthomosaics, digital elevation models, and measurements of topographic and sediment-
+      volume change before and after rainfall events. Supporting data include airborne lidar, rainfall
+      records, fixed-camera photographs, debris-basin capacities and excavation records, and USGS debris-
+      flow volume predictions.
+    pi: "Michael Lamb"
+    institution: "Caltech"
+    primary_contact: "zchen256@asu.edu"
+    observatories:
+      - "SoCal"
+    data_type:
+      - "Elevation"
+      - "Imagery"
+    instrument: "UAV lidar"
+    field_site: "San Gabriel Mountains, CA"
+    spatial:
+      type: bboxes
+      boxes:
+        - {north: 34.1946042548837, south: 34.1694257392379, east: -118.04710765304, west: -118.072347365492}
+    collection_start: "2025-02-10"
+    size_gb: 100.0
+    data_level: "L1: Calibrated data"
+    data_location: "available upon request"
+    date_added: "2026-08-31"
+
+  - id: DS008
+    name: "PR River Grain Size Data"
+    description: >
+      Wolman pebble counts of bedload and ipad lidar scans and photo mosaics of channel bars.
+      Approximately 180 measurements from throughout Puerto Rico
+    pi: "Sean F. Gallen"
+    institution: "Colorado State Univeristy"
+    personnel:
+      - "Ana Perez-Hincapie"
+      - "Abby Axness"
+      - "Kate Drobnich"
+      - "Estefania Vinces"
+    observatories:
+      - "Puerto Rico"
+    data_type:
+      - "Sedimentological / Soil"
+    field_site: "Puerto Rico"
+    spatial:
+      type: bboxes
+      boxes:
+        - {north: 18.355878331792248, south: 18.02527044936428, east: -65.70035935900046, west: -67.11244128542283}
+    collection_start: "2020-03-13"
+    size_gb: 0.1
+    data_level: "L2b: Finalized quality controlled data"
+    data_location: "Local computers and severs but will be publicly available upon publication"
+    date_added: "2026-09-01"
+
+  - id: DS009
+    name: "Cosmogenic radionuclide concentrations in Puerto Rico river sands."
+    description: >
+      cosmogenic radionuclide concentration inventory for basin average erosion rates (10Be and 36Cl). 123
+      measurements throughout the island (62 are from CSU, 61 compiled from the literature)
+    pi: "Sean F Gallen"
+    institution: "Colorado State University"
+    personnel:
+      - "Johanna Eidmann"
+      - "Abby Axness"
+      - "Kate Drobnich"
+      - "Ana Perez-Hincapie"
+    observatories:
+      - "Puerto Rico"
+    data_type:
+      - "Laboratory / Analytical"
+    field_site: "Puerto Rico"
+    spatial:
+      type: bboxes
+      boxes:
+        - {north: 18.355878331792248, south: 18.02527044936428, east: -65.71416813738973, west: -67.11187419723856}
+    collection_start: "2019-01-03"
+    size_gb: 0.1
+    data_level: "L2b: Finalized quality controlled data"
+    collection_status: Active - ongoing collection
+    data_location: "On local computers and servers. Will be made available upon publication."
+    date_added: "2026-09-01"
+
+  - id: DS010
+    name: "Puerto Rico Bedrock channel hydraulic measurements"
+    description: >
+      Field measurements of channel hydraulics (width and flow depth) in bedrock channels throughout
+      Puerto Rico. Database contains ~180 measurements.
+    pi: "Sean F. Gallen"
+    institution: "Colorado State University"
+    observatories:
+      - "Puerto Rico"
+    data_type:
+      - "Field observations"
+    field_site: "Puerto Rico"
+    spatial:
+      type: bboxes
+      boxes:
+        - {north: 18.355878331792248, south: 18.02527044936428, east: -65.70035935900046, west: -67.11244128542283}
+    collection_start: "2020-03-19"
+    size_gb: 0.1
+    data_level: "L2b: Finalized quality controlled data"
+    data_location: "Local computers and servers. Will be made available upon publication."
+    date_added: "2026-09-01"
+
+  - id: DS011
+    name: "Precipitation Data for Postfire Debris-Flows in southern California, 2021-2025"
+    description: >
+      This collection contains 12 gridded precipitation datasets and gauge (point) data over southern
+      California during seven debris-flow triggering storms between 2021 and 2025. The precipitation
+      estimates were gathered from already published, open-access data sources to support work
+      investigating the utility of gridded precipitation data for postfire debris-flow applications. The
+      project also includes a list of documented postfire debris flows during the storms investigated.
+    pi: "Daniel Horton"
+    institution: "Northwestern University"
+    primary_contact: "Ann Sinclair - annsinclair2028@u.northwestern.edu"
+    personnel:
+      - "Ann Sinclair"
+      - "Nina Oakley"
+      - "Joshua West"
+      - "Marin Clark"
+      - "Daniel Horton"
+    observatories:
+      - "SoCal"
+    data_type:
+      - "Meteorological / Climatological"
+    instrument: "rain gauges, radar, satellite, numerical weather prediction models, reanalysis"
+    parameters_measured:
+      - "Precipitation intensity"
+    field_site: "southern California"
+    spatial:
+      type: bboxes
+      boxes:
+        - {north: 38.0, south: 32.0, east: -114.0, west: -123.0}
+    collection_start: "2021-01-27"
+    collection_end: "2025-09-17"
+    temporal_resolution: "1 hour"
+    spatial_resolution: "variable"
+    format: "netCDF"
+    size_gb: 10.0
+    data_level: "L4: Derived products"
+    collection_status: Published - data is in a data repository
+    data_location: "https://doi.org/10.17603/ds2-bbfe-8v84"
+    doi: "https://doi.org/10.17603/ds2-bbfe-8v84"
+    date_added: "2026-09-02"
+
+  - id: DS012
+    name: "Active seismic survery for Topanga and Mandeville Canyon (August 2026)"
+    description: >
+      Active seismic data used to quantify subsurface critical zone structure at Mandeville and Topanga
+      Canyon field sites.
+    pi: "Russell Callahan"
+    institution: "University of Connecticut"
+    personnel:
+      - "Seulgi Moon"
+      - "Yang Ma"
+      - "Benjamin Tan"
+      - "Joshua Lee"
+      - "Adit Gosh"
+    observatories:
+      - "SoCal"
+    data_type:
+      - "Geophysical"
+    instrument: "stryde nodes, evr-2,"
+    parameters_measured:
+      - "travel time"
+      - "primary wave velocity"
+    field_site: "Santa Monic Mountains, CA"
+    spatial:
+      type: bboxes
+      boxes:
+        - {north: 34.11744625, south: 34.06070021, east: -118.50423668, west: -118.58719888}
+    collection_start: "2026-08-05"
+    collection_end: "2026-08-08"
+    temporal_resolution: "single campagin"
+    spatial_resolution: "1 m geophone spacing"
+    format: "segy"
+    size_gb: 0.5
+    data_level: "L2a: Quality controlled data"
+    collection_status: Complete - collection finished
+    data_location: "currently stored on UConn OneDrive"
+    date_added: "2026-09-08"
+
+  - id: DS013
+    name: "Soil water retention monitoring and soil classification after 2025 Palisades Fire"
+    description: >
+      Continuous matric suction and volumetric water content measurements and standard soil classification
+      tests at the Mandeville, Los Leones, and Topanga Canyon to quantify spatiotemporal changes in soil
+      type and hydrologic behavior, which will be used evaluate landslide susceptibility. Sensors are
+      TEROS 21 and TEROS 11 (Meter Group, Pullman WA), installed at 10, 30, and 50 cm depths. Soil
+      characterization experiments were performed with samples collected at 10 and 50 cm depths and
+      include sieve analysis, hydrometer, Atterberg limits.
+    pi: "Idil Akin"
+    institution: "University of California, Los Angeles"
+    observatories:
+      - "SoCal"
+    data_type:
+      - "Geotechnical"
+      - "Hydrological"
+      - "Laboratory / Analytical"
+      - "Sedimentological / Soil"
+    field_site: "Santa Monica Mountains"
+    spatial:
+      type: bboxes
+      boxes:
+        - {north: 34.12113298700008, south: 34.0470404243752, east: -118.5049110189999, west: -118.595794150771}
+    collection_start: "2025-02-18"
+    temporal_resolution: "1 hour"
+    size_gb: 1.0
+    data_level: "L2b: Finalized quality controlled data"
+    collection_status: Active - ongoing collection
+    data_location: "Lab computers and backup drives"
+    date_added: "2026-09-14"
+
+  - id: DS014
+    name: "Helene debris flow surveys"
+    description: >
+      Surveys flown using a lidar and photogrammetry equipped UAV in a base and rover configuration at 16
+      different locations across North Carolina to create DEMs, raw point clouds, and classified point
+      clouds (currently 7 categorizations).
+    pi: "Ryan Thigpen"
+    institution: "University of Kentucky"
+    primary_contact: "Ryan Thigpen"
+    personnel:
+      - "Summer Brown and Sarah Johnson (University of Kentucky)"
+      - "Philip Prince (Appalachian Landslide Consultants)"
+    observatories:
+      - "Appalachia"
+    data_type:
+      - "Elevation"
+      - "Imagery"
+    instrument: "Emlid RS3 or RS4 Pro base station and a remote reference station via the North Carolina Continuously Operating Reference (CORS) Network"
+    field_site: "Buncombe, Yancey and Henderson County, North Carolina"
+    spatial_resolution: "max. resolution ~0.020 m/pixel"
+    data_level: "L4: Derived products"
+    date_added: "2026-09-15"
+
+  - id: DS015
+    name: "Puerto Rico Microbiome Analysis"
+    description: >
+      Locations of observational and field incubation experiment aimed at understanding the communities of
+      microorganisms involved in rock weathering
+    pi: "Carla Restrepo"
+    institution: "University of Puerto Rico at Rio Piedras"
+    personnel:
+      - "Yakshi Ortiz"
+    observatories:
+      - "Puerto Rico"
+    data_type:
+      - "Other"
+    field_site: "Central Mountains, PR"
+    spatial:
+      type: bboxes
+      boxes:
+        - {north: 18.167947580631484, south: 18.16559566363194, east: -66.60087588900659, west: -66.60489289857969}
+    collection_start: "2017-02-02"
+    temporal_resolution: "NA"
+    spatial_resolution: "NA"
+    size_gb: 0.001
+    data_level: "L0: Raw observation"
+    collection_status: Complete - collection finished
+    data_location: "Local computer"
+    date_added: "2026-09-17"
